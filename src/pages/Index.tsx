@@ -2,8 +2,10 @@
 import React, { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import LogoCarousel from "@/components/LogoCarousel";
 import About from "@/components/About";
 import Weeks from "@/components/Weeks";
+import TestimonialsBento from "@/components/TestimonialsBento";
 import BookAppointment from "@/components/BookAppointment";
 import Footer from "@/components/Footer";
 
@@ -56,10 +58,12 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       <Navbar />
-      <main className="space-y-4 sm:space-y-8">
+      <main className="space-y-0">
         <Hero />
+        <LogoCarousel />
         <About />
         <Weeks />
+        <TestimonialsBento />
         <BookAppointment />
       </main>
       <Footer />

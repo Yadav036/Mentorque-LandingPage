@@ -67,16 +67,16 @@ const TestimonialsBento = () => {
   };
 
   return (
-    <section className="py-20 bg-gray-50" id="testimonials">
+    <section className="py-20 bg-black" id="testimonials">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-black/10 text-black border border-black/20 mb-4">
+          <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-white/10 text-white border border-white/20 mb-4">
             <span>Success Stories</span>
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
             What Our Students Say
           </h2>
-          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">
             Real stories from professionals who transformed their careers with Mentorque.
           </p>
         </div>
@@ -85,10 +85,10 @@ const TestimonialsBento = () => {
           {testimonials.map((testimonial) => (
             <div
               key={testimonial.id}
-              className={`bg-white rounded-2xl p-6 shadow-sm border border-gray-200 hover:shadow-md transition-all duration-300 ${getSizeClasses(testimonial.size)}`}
+              className={`bg-white/5 rounded-2xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm ${getSizeClasses(testimonial.size)}`}
             >
               <div className="flex items-start justify-between mb-4">
-                <Quote className="w-8 h-8 text-gray-400 flex-shrink-0" />
+                <Quote className="w-8 h-8 text-white/60 flex-shrink-0" />
                 <div className="flex">
                   {[...Array(testimonial.rating)].map((_, i) => (
                     <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
@@ -96,21 +96,21 @@ const TestimonialsBento = () => {
                 </div>
               </div>
               
-              <blockquote className="text-gray-700 mb-6 leading-relaxed">
+              <blockquote className="text-gray-300 mb-6 leading-relaxed">
                 {testimonial.content}
               </blockquote>
               
               <div className="flex items-center">
-                <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center mr-3">
-                  <span className="text-white font-semibold text-sm">
+                <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center mr-3">
+                  <span className="text-black font-semibold text-sm">
                     {testimonial.name.split(' ').map(n => n[0]).join('')}
                   </span>
                 </div>
                 <div>
-                  <div className="font-semibold text-black text-sm">
+                  <div className="font-semibold text-white text-sm">
                     {testimonial.name}
                   </div>
-                  <div className="text-gray-500 text-xs">
+                  <div className="text-gray-400 text-xs">
                     {testimonial.role}
                   </div>
                 </div>

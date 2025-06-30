@@ -74,8 +74,8 @@ const Weeks = () => {
           </p>
         </div>
 
-        {/* Vertical Stacking Cards */}
-        <div className="max-w-4xl mx-auto relative">
+        {/* Vertical Stacking Cards - Made Wider */}
+        <div className="max-w-6xl mx-auto relative">
           {/* Progress Line */}
           <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-white/30 via-white/20 to-white/10 transform -translate-x-1/2">
             <div 
@@ -105,7 +105,7 @@ const Weeks = () => {
                     transition: 'all 0.3s ease-out'
                   }}
                 >
-                  <div className={`glass-card rounded-2xl p-8 relative overflow-hidden transition-all duration-500 ${
+                  <div className={`glass-card rounded-2xl p-10 lg:p-12 xl:p-16 relative overflow-hidden transition-all duration-500 ${
                     isActive 
                       ? 'border-white/40 bg-white/10 shadow-lg shadow-white/10' 
                       : 'border-white/10 bg-white/5'
@@ -120,18 +120,18 @@ const Weeks = () => {
                     </div>
                     
                     <div className="text-center pt-8">
-                      <h3 className="text-2xl font-semibold mb-4 text-white">
+                      <h3 className="text-3xl lg:text-4xl font-semibold mb-6 text-white">
                         {week.title}
                       </h3>
                       
-                      <p className="text-gray-300 mb-6 leading-relaxed">
+                      <p className="text-gray-300 mb-8 leading-relaxed text-lg lg:text-xl max-w-3xl mx-auto">
                         {week.description}
                       </p>
                       
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 max-w-4xl mx-auto">
                         {week.tasks.map((task, taskIndex) => (
-                          <div key={taskIndex} className="flex items-center text-sm text-gray-400">
-                            <CheckCircle className="w-4 h-4 mr-3 flex-shrink-0 text-white/60" />
+                          <div key={taskIndex} className="flex items-center text-base lg:text-lg text-gray-400 bg-white/5 rounded-lg p-4 border border-white/10">
+                            <CheckCircle className="w-5 h-5 mr-4 flex-shrink-0 text-white/60" />
                             <span>{task}</span>
                           </div>
                         ))}

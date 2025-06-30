@@ -138,11 +138,11 @@
     background-position: center;
   }
 
-  /* Black and white chip design */
+  /* Updated glass chip design with better adaptability */
   .glass-chip {
     @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium backdrop-blur-sm;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 4px 15px 0 rgba(255, 255, 255, 0.1);
   }
   

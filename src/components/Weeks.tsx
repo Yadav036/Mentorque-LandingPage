@@ -4,41 +4,28 @@ import { CheckCircle, ArrowRight } from "lucide-react";
 
 const Weeks = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [activeWeek, setActiveWeek] = useState(0);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate-fade-in");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    
-    const elements = document.querySelectorAll(".fade-in-stagger");
-    elements.forEach((el, index) => {
-      (el as HTMLElement).style.animationDelay = `${0.1 * (index + 1)}s`;
-      observer.observe(el);
-    });
-    
-    return () => {
-      elements.forEach((el) => {
-        observer.unobserve(el);
-      });
+    const handleScroll = () => {
+      if (sectionRef.current) {
+        const rect = sectionRef.current.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        const elementHeight = rect.height;
+        
+        // Calculate scroll progress through the section
+        const progress = Math.max(0, Math.min(1, 
+          (windowHeight - rect.top) / (windowHeight + elementHeight)
+        ));
+        
+        setScrollProgress(progress);
+      }
     };
-  }, []);
 
-  // Auto-advance the active week for animation
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveWeek((prev) => (prev + 1) % 4);
-    }, 3000);
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial call
     
-    return () => clearInterval(interval);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const weeks = [
@@ -69,7 +56,7 @@ const Weeks = () => {
   ];
 
   return (
-    <section className="py-20 bg-black relative overflow-hidden" id="weeks" ref={sectionRef}>
+    <section className="py-20 bg-black relative overflow-hidden min-h-screen" id="weeks" ref={sectionRef}>
       {/* Animated background elements */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white/5 rounded-full blur-3xl animate-pulse-slow"></div>
@@ -77,7 +64,7 @@ const Weeks = () => {
       </div>
       
       <div className="section-container relative z-10">
-        <div className="text-center mb-16 opacity-0 fade-in-stagger">
+        <div className="text-center mb-16">
           <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-white/10 text-white border border-white/20 mb-4 glass-chip">
             <span>4-Week Journey</span>
           </div>
@@ -87,84 +74,83 @@ const Weeks = () => {
           </p>
         </div>
 
-        {/* Journey Map */}
-        <div className="relative max-w-6xl mx-auto">
-          {/* Glowing connection line */}
-          <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-white/30 to-transparent transform -translate-y-1/2 hidden md:block">
-            <div className="absolute inset-0 bg-white/20 blur-sm"></div>
+        {/* Vertical Stacking Cards */}
+        <div className="max-w-4xl mx-auto relative">
+          {/* Progress Line */}
+          <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-white/30 via-white/20 to-white/10 transform -translate-x-1/2">
             <div 
-              className="absolute top-0 h-full w-1 bg-white shadow-lg shadow-white/50 transition-all duration-1000 ease-in-out"
+              className="absolute top-0 left-0 w-full bg-white transition-all duration-300 ease-out"
               style={{ 
-                left: `${(activeWeek * 25) + 12.5}%`,
-                transform: 'translateX(-50%)'
+                height: `${scrollProgress * 100}%`,
+                boxShadow: '0 0 10px rgba(255, 255, 255, 0.5)'
               }}
             ></div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {weeks.map((week, index) => (
-              <div 
-                key={index} 
-                className={`opacity-0 fade-in-stagger transition-all duration-500 ${
-                  activeWeek === index ? 'scale-105' : ''
-                }`}
-              >
-                <div className={`glass-card bg-white/5 border rounded-2xl p-6 text-center relative overflow-hidden transition-all duration-500 hover:scale-105 ${
-                  activeWeek === index 
-                    ? 'border-white/40 bg-white/10 shadow-lg shadow-white/10' 
-                    : 'border-white/10 hover:border-white/20'
-                }`}>
-                  {/* Week number */}
-                  <div className={`w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 font-bold transition-all duration-500 ${
-                    activeWeek === index 
-                      ? 'bg-white text-black shadow-lg shadow-white/20' 
-                      : 'bg-white/20 text-white'
+          <div className="space-y-8">
+            {weeks.map((week, index) => {
+              const cardProgress = Math.max(0, Math.min(1, (scrollProgress * 4) - index));
+              const isActive = cardProgress > 0;
+              const scale = 0.9 + (cardProgress * 0.1);
+              const translateY = (1 - cardProgress) * 50;
+              const opacity = 0.3 + (cardProgress * 0.7);
+
+              return (
+                <div 
+                  key={index}
+                  className="relative"
+                  style={{
+                    transform: `translateY(${translateY}px) scale(${scale})`,
+                    opacity: opacity,
+                    transition: 'all 0.3s ease-out'
+                  }}
+                >
+                  <div className={`glass-card rounded-2xl p-8 relative overflow-hidden transition-all duration-500 ${
+                    isActive 
+                      ? 'border-white/40 bg-white/10 shadow-lg shadow-white/10' 
+                      : 'border-white/10 bg-white/5'
                   }`}>
-                    {week.week}
-                  </div>
-                  
-                  <h3 className="text-lg font-semibold mb-3 text-white">
-                    {week.title}
-                  </h3>
-                  
-                  <p className="text-gray-300 text-sm mb-4 leading-relaxed">
-                    {week.description}
-                  </p>
-                  
-                  <div className="space-y-2">
-                    {week.tasks.map((task, taskIndex) => (
-                      <div key={taskIndex} className="flex items-center text-xs text-gray-400">
-                        <CheckCircle className="w-3 h-3 mr-2 flex-shrink-0" />
-                        <span>{task}</span>
+                    {/* Week number positioned on the line */}
+                    <div className={`absolute left-1/2 top-0 w-12 h-12 rounded-full flex items-center justify-center font-bold transition-all duration-500 transform -translate-x-1/2 -translate-y-6 z-10 ${
+                      isActive 
+                        ? 'bg-white text-black shadow-lg shadow-white/20' 
+                        : 'bg-white/20 text-white'
+                    }`}>
+                      {week.week}
+                    </div>
+                    
+                    <div className="text-center pt-8">
+                      <h3 className="text-2xl font-semibold mb-4 text-white">
+                        {week.title}
+                      </h3>
+                      
+                      <p className="text-gray-300 mb-6 leading-relaxed">
+                        {week.description}
+                      </p>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        {week.tasks.map((task, taskIndex) => (
+                          <div key={taskIndex} className="flex items-center text-sm text-gray-400">
+                            <CheckCircle className="w-4 h-4 mr-3 flex-shrink-0 text-white/60" />
+                            <span>{task}</span>
+                          </div>
+                        ))}
                       </div>
-                    ))}
+                    </div>
+
+                    {/* Animated glow effect for active week */}
+                    {isActive && (
+                      <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50 rounded-2xl animate-pulse"></div>
+                    )}
                   </div>
-
-                  {/* Animated glow effect for active week */}
-                  {activeWeek === index && (
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50 rounded-2xl animate-pulse"></div>
-                  )}
                 </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Progress indicators */}
-          <div className="flex justify-center mt-8 md:hidden">
-            {weeks.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setActiveWeek(index)}
-                className={`w-2 h-2 rounded-full mx-1 transition-all duration-300 ${
-                  activeWeek === index ? 'bg-white scale-125' : 'bg-white/30'
-                }`}
-              />
-            ))}
+              );
+            })}
           </div>
         </div>
 
         {/* Call to action */}
-        <div className="text-center mt-12 opacity-0 fade-in-stagger">
+        <div className="text-center mt-16">
           <a 
             href="https://calendly.com/mentorque"
             target="_blank"

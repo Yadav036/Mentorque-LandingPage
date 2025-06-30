@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Calendar } from "lucide-react";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -40,7 +40,7 @@ const Navbar = () => {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 py-2 sm:py-3 md:py-4 transition-all duration-300",
         isScrolled 
-          ? "bg-black/80 backdrop-blur-md shadow-sm border-b border-gray-800" 
+          ? "bg-black/80 backdrop-blur-md shadow-sm border-b border-gray-800 glass-effect" 
           : "bg-transparent"
       )}
     >
@@ -60,10 +60,10 @@ const Navbar = () => {
         </a>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-8">
+        <nav className="hidden md:flex space-x-8 items-center">
           <a 
             href="#" 
-            className="relative text-white hover:text-pulse-500 py-2 transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-pulse-500 after:transition-all hover:after:w-full"
+            className="relative text-white hover:text-gray-300 py-2 transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-white after:transition-all hover:after:w-full"
             onClick={(e) => {
               e.preventDefault();
               scrollToTop();
@@ -71,9 +71,17 @@ const Navbar = () => {
           >
             Home
           </a>
-          <a href="#features" className="relative text-white hover:text-pulse-500 py-2 transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-pulse-500 after:transition-all hover:after:w-full">Features</a>
-          <a href="#testimonials" className="relative text-white hover:text-pulse-500 py-2 transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-pulse-500 after:transition-all hover:after:w-full">Testimonials</a>
-          <a href="#get-access" className="relative text-white hover:text-pulse-500 py-2 transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-pulse-500 after:transition-all hover:after:w-full">Get Started</a>
+          <a href="#about" className="relative text-white hover:text-gray-300 py-2 transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-white after:transition-all hover:after:w-full">About</a>
+          <a href="#weeks" className="relative text-white hover:text-gray-300 py-2 transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-white after:transition-all hover:after:w-full">Journey</a>
+          <a 
+            href="https://calendly.com/mentorque"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 glass-button px-4 py-2 rounded-full border border-white/20 hover:border-white/40 transition-all duration-300"
+          >
+            <Calendar className="w-4 h-4" />
+            Book Appointment
+          </a>
         </nav>
 
         {/* Mobile menu button - increased touch target */}
@@ -88,13 +96,13 @@ const Navbar = () => {
 
       {/* Mobile Navigation - improved for better touch experience */}
       <div className={cn(
-        "fixed inset-0 z-40 bg-black flex flex-col pt-16 px-6 md:hidden transition-all duration-300 ease-in-out",
+        "fixed inset-0 z-40 bg-black/90 backdrop-blur-sm flex flex-col pt-16 px-6 md:hidden transition-all duration-300 ease-in-out glass-overlay",
         isMenuOpen ? "opacity-100 translate-x-0" : "opacity-0 translate-x-full pointer-events-none"
       )}>
         <nav className="flex flex-col space-y-8 items-center mt-8">
           <a 
             href="#" 
-            className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-900 text-white" 
+            className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-white/10 text-white transition-all duration-300" 
             onClick={(e) => {
               e.preventDefault();
               scrollToTop();
@@ -105,34 +113,33 @@ const Navbar = () => {
             Home
           </a>
           <a 
-            href="#features" 
-            className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-900 text-white" 
+            href="#about" 
+            className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-white/10 text-white transition-all duration-300" 
             onClick={() => {
               setIsMenuOpen(false);
               document.body.style.overflow = '';
             }}
           >
-            Features
+            About
           </a>
           <a 
-            href="#testimonials" 
-            className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-900 text-white" 
+            href="#weeks" 
+            className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-white/10 text-white transition-all duration-300" 
             onClick={() => {
               setIsMenuOpen(false);
               document.body.style.overflow = '';
             }}
           >
-            Testimonials
+            Journey
           </a>
           <a 
-            href="#get-access" 
-            className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-900 text-white" 
-            onClick={() => {
-              setIsMenuOpen(false);
-              document.body.style.overflow = '';
-            }}
+            href="https://calendly.com/mentorque"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 glass-button px-6 py-3 rounded-full border border-white/20 hover:border-white/40 text-white transition-all duration-300"
           >
-            Get Started
+            <Calendar className="w-4 h-4" />
+            Book Appointment
           </a>
         </nav>
       </div>

@@ -1,7 +1,6 @@
-
 import React, { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Calendar } from "lucide-react";
 
 const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -29,16 +28,17 @@ const Hero = () => {
         padding: isMobile ? '100px 12px 40px' : '120px 20px 60px'
       }}
     >
+      {/* Keep the original moon gradient overlay */}
       <div className="absolute -top-[10%] -right-[5%] w-1/2 h-[70%] bg-pulse-gradient opacity-20 blur-3xl rounded-full"></div>
       
       <div className="container px-4 sm:px-6 lg:px-8" ref={containerRef}>
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 items-center">
           <div className="w-full lg:w-1/2">
             <div 
-              className="pulse-chip mb-3 sm:mb-6 opacity-0 animate-fade-in" 
+              className="glass-chip mb-3 sm:mb-6 opacity-0 animate-fade-in" 
               style={{ animationDelay: "0.1s" }}
             >
-              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-pulse-500 text-white mr-2">01</span>
+              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-white text-black mr-2">01</span>
               <span>Get Hired Fast</span>
             </div>
             
@@ -61,42 +61,65 @@ const Hero = () => {
               style={{ animationDelay: "0.7s" }}
             >
               <a 
-                href="#get-access" 
-                className="flex items-center justify-center group w-full sm:w-auto text-center" 
-                style={{
-                  backgroundColor: '#FE5C02',
-                  borderRadius: '1440px',
-                  boxSizing: 'border-box',
-                  color: '#FFFFFF',
-                  cursor: 'pointer',
-                  fontSize: '14px',
-                  lineHeight: '20px',
-                  padding: '16px 24px',
-                  border: '1px solid white',
-                }}
+                href="https://calendly.com/mentorque" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center group w-full sm:w-auto text-center bg-white text-black hover:bg-gray-200 font-medium py-4 px-6 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
               >
-                Get a Free Resume Review
+                <Calendar className="mr-2 w-4 h-4" />
+                Book Free Consultation
                 <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
               </a>
             </div>
           </div>
           
           <div className="w-full lg:w-1/2 relative mt-6 lg:mt-0">
-            <div className="absolute inset-0 bg-dark-900 rounded-2xl sm:rounded-3xl -z-10 shadow-xl"></div>
-            <div className="relative transition-all duration-500 ease-out overflow-hidden rounded-2xl sm:rounded-3xl shadow-2xl">
-              <img 
-                src="/lovable-uploads/5663820f-6c97-4492-9210-9eaa1a8dc415.png" 
-                alt="Mentorque Mentorship" 
-                className="w-full h-auto object-cover transition-transform duration-500 ease-out" 
-                style={{ transformStyle: 'preserve-3d' }} 
-              />
-              <div className="absolute inset-0" style={{ backgroundImage: 'url("/hero-image.jpg")', backgroundSize: 'cover', backgroundPosition: 'center', mixBlendMode: 'overlay', opacity: 0.3 }}></div>
+            {/* Replace robot image with appointment booking card */}
+            <div className="glass-card bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur-lg">
+              <div className="text-center">
+                <div className="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-6 glass-effect">
+                  <Calendar className="w-10 h-10 text-white" />
+                </div>
+                
+                <h3 className="text-2xl font-bold text-white mb-4">
+                  Schedule Your Free Session
+                </h3>
+                
+                <p className="text-gray-300 mb-6 leading-relaxed">
+                  Get personalized career guidance from industry experts. No commitment required.
+                </p>
+                
+                <div className="space-y-3 mb-6">
+                  <div className="flex items-center text-gray-300 text-sm">
+                    <div className="w-2 h-2 bg-white rounded-full mr-3"></div>
+                    <span>30-minute consultation</span>
+                  </div>
+                  <div className="flex items-center text-gray-300 text-sm">
+                    <div className="w-2 h-2 bg-white rounded-full mr-3"></div>
+                    <span>Expert career guidance</span>
+                  </div>
+                  <div className="flex items-center text-gray-300 text-sm">
+                    <div className="w-2 h-2 bg-white rounded-full mr-3"></div>
+                    <span>Personalized action plan</span>
+                  </div>
+                </div>
+                
+                <a 
+                  href="https://calendly.com/mentorque"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="glass-button border border-white/20 hover:border-white/40 text-white py-3 px-6 rounded-full transition-all duration-300 inline-flex items-center gap-2 group w-full justify-center"
+                >
+                  Book Now - It's Free
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </div>
       
-      <div className="hidden lg:block absolute bottom-0 left-1/4 w-64 h-64 bg-pulse-100/30 rounded-full blur-3xl -z-10 parallax" data-speed="0.05"></div>
+      <div className="hidden lg:block absolute bottom-0 left-1/4 w-64 h-64 bg-white/5 rounded-full blur-3xl -z-10 parallax animate-float" data-speed="0.05"></div>
     </section>
   );
 };

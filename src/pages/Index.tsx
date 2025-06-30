@@ -2,12 +2,9 @@
 import React, { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import MetricsSection from "@/components/MetricsSection";
-import FeaturesSection from "@/components/FeaturesSection";
-import TestimonialsSection from "@/components/TestimonialsSection";
-import MentorsSection from "@/components/MentorsSection";
-import SupportSection from "@/components/SupportSection";
-import CTASection from "@/components/CTASection";
+import About from "@/components/About";
+import Weeks from "@/components/Weeks";
+import BookAppointment from "@/components/BookAppointment";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -61,12 +58,9 @@ const Index = () => {
       <Navbar />
       <main className="space-y-4 sm:space-y-8">
         <Hero />
-        <MetricsSection />
-        <FeaturesSection />
-        <TestimonialsSection />
-        <MentorsSection />
-        <SupportSection />
-        <CTASection />
+        <About />
+        <Weeks />
+        <BookAppointment />
       </main>
       <Footer />
     </div>

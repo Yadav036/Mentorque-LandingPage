@@ -1,150 +1,180 @@
+"use client"
 
-import React, { useState, useEffect } from "react";
-import { cn } from "@/lib/utils";
-import { Menu, X, Calendar } from "lucide-react";
+import { useState, useEffect } from "react"
+import { cn } from "@/lib/utils"
+import { Menu, X, Flag, Calendar, } from "lucide-react"
 
 const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-    // Prevent background scrolling when menu is open
-    document.body.style.overflow = !isMenuOpen ? 'hidden' : '';
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-    
-    // Close mobile menu if open
-    if (isMenuOpen) {
-      setIsMenuOpen(false);
-      document.body.style.overflow = '';
+      setIsScrolled(window.scrollY > 20)
     }
-  };
+
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  const navItems = [
+    { name: "hero", href: "#hero" },
+    { name: "Journey", href: "#Journey" },
+    { name: "Testimonials", href: "#Testimonials" },
+    { name: "FAQ", href: "#FAQ" },
+  ]
+
+  // Dynamic color classes based on background
+  const getTextColors = () => {
+    if (isScrolled) {
+      // Darker background when scrolled - use lighter text
+      return {
+        logoText: "text-white",
+        navText: "text-white/80 hover:text-white",
+        buttonText: "text-white",
+        buttonBg: "bg-white/15 hover:bg-white/25 border-white/30 hover:border-white/40",
+        iconColor: "text-white"
+      }
+    } else {
+      // Lighter background when at top - use darker text for better contrast
+      return {
+        logoText: "text-gray-900",
+        navText: "text-gray-700 hover:text-gray-900",
+        buttonText: "text-gray-900",
+        buttonBg: "bg-white/20 hover:bg-white/30 border-gray-300/40 hover:border-gray-400/50",
+        iconColor: "text-gray-900"
+      }
+    }
+  }
+
+  const colors = getTextColors()
 
   return (
-    <header
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 py-2 sm:py-3 md:py-4 transition-all duration-300",
-        isScrolled 
-          ? "bg-black/90 backdrop-blur-md shadow-sm border-b border-gray-800 glass-effect" 
-          : "bg-black/50 backdrop-blur-sm"
-      )}
-    >
-      <div className="container flex items-center justify-between px-4 sm:px-6 lg:px-8">
-        <a 
-          href="#" 
-          className="flex items-center space-x-2"
-          onClick={(e) => {
-            e.preventDefault();
-            scrollToTop();
-          }}
-          aria-label="Mentorque"
+    <nav className="fixed top-4 left-0 right-0 z-50 flex justify-center items-start pointer-events-none">
+      <div className="max-w-6xl md:w-full px-[7px]">
+        {/* Desktop Navbar */}
+        <div
+          className={cn(
+            "hidden md:flex items-center justify-between px-[7px] py-[7px] rounded-2xl transition-all duration-500 ease-out pointer-events-auto",
+            "backdrop-blur-2xl bg-black/10 border border-white/10",
+            "shadow-2xl shadow-black/20",
+            isScrolled ? "bg-black/20 border-white/20" : "",
+          )}
+          style={{ minHeight: 52 }}
         >
-          <div className="text-2xl font-bold text-white">
-            Mentorque
+          {/* Logo */}
+          <div className="flex items-center">
+            <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center mr-3">
+              <div className="w-5 h-5 bg-black rounded-sm"></div>
+            </div>
+            <span className={cn("font-bold text-xl transition-colors duration-500", colors.logoText)}>
+              Mentorque
+            </span>
           </div>
-        </a>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-8 items-center">
-          <a 
-            href="#" 
-            className="relative text-white hover:text-gray-300 py-2 transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-white after:transition-all hover:after:w-full"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToTop();
-            }}
-          >
-            Home
-          </a>
-          <a href="#about" className="relative text-white hover:text-gray-300 py-2 transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-white after:transition-all hover:after:w-full">About</a>
-          <a href="#weeks" className="relative text-white hover:text-gray-300 py-2 transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-white after:transition-all hover:after:w-full">Journey</a>
-          <a 
+          {/* Navigation Links */}
+          <div className="flex items-center space-x-8">
+            {navItems.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                className={cn(
+                  "transition-colors duration-500 font-medium text-sm",
+                  colors.navText
+                )}
+              >
+                {item.name}
+              </a>
+            ))}
+
+            
+            
+          
+          </div>
+
+          {/* Preview Button */}
+          <a
             href="https://calendly.com/mentorque"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 glass-button px-4 py-2 rounded-full border border-white/20 hover:border-white/40 transition-all duration-300"
+            className={cn(
+              "flex items-center space-x-2 px-4 py-2 rounded-xl transition-all duration-300 font-medium group transform hover:scale-[1.02] shadow-lg hover:shadow-xl",
+              isScrolled 
+                ? "bg-white text-gray-900 hover:bg-gray-100" 
+                : "bg-gray-900 text-white hover:bg-black"
+            )}
           >
-            <Calendar className="w-4 h-4" />
-            Book Appointment
+            <Calendar size={18} className="transition-transform group-hover:translate-x-0.5" />
+            <span>Book Appointment</span>
+            
           </a>
-        </nav>
+        </div>
 
-        {/* Mobile menu button - increased touch target */}
-        <button 
-          className="md:hidden text-white p-3 focus:outline-none" 
-          onClick={toggleMenu}
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+        {/* Mobile Navbar */}
+        <div
+          className={cn(
+            "md:hidden flex absolute top-0 right-1.5 px-[7px] py-[7px] rounded-2xl transition-all duration-500 pointer-events-auto",
+           
+          )}
+          style={{ minHeight: 52 }}
         >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </div>
+          
 
-      {/* Mobile Navigation - improved for better touch experience */}
-      <div className={cn(
-        "fixed inset-0 z-40 bg-black/90 backdrop-blur-sm flex flex-col pt-16 px-6 md:hidden transition-all duration-300 ease-in-out glass-overlay",
-        isMenuOpen ? "opacity-100 translate-x-0" : "opacity-0 translate-x-full pointer-events-none"
-      )}>
-        <nav className="flex flex-col space-y-8 items-center mt-8">
-          <a 
-            href="#" 
-            className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-white/10 text-white transition-all duration-300" 
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToTop();
-              setIsMenuOpen(false);
-              document.body.style.overflow = '';
-            }}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className={cn(
+              "p-2 rounded-lg transition-colors duration-500",
+              colors.iconColor,
+              isScrolled ? "hover:bg-white/10" : "hover:bg-black/10"
+            )}
           >
-            Home
-          </a>
-          <a 
-            href="#about" 
-            className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-white/10 text-white transition-all duration-300" 
-            onClick={() => {
-              setIsMenuOpen(false);
-              document.body.style.overflow = '';
-            }}
-          >
-            About
-          </a>
-          <a 
-            href="#weeks" 
-            className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-white/10 text-white transition-all duration-300" 
-            onClick={() => {
-              setIsMenuOpen(false);
-              document.body.style.overflow = '';
-            }}
-          >
-            Journey
-          </a>
-          <a 
-            href="https://calendly.com/mentorque"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 glass-button px-6 py-3 rounded-full border border-white/20 hover:border-white/40 text-white transition-all duration-300"
-          >
-            <Calendar className="w-4 h-4" />
-            Book Appointment
-          </a>
-        </nav>
-      </div>
-    </header>
-  );
-};
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
 
-export default Navbar;
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden mt-2 p-[7px] rounded-2xl backdrop-blur-2xl bg-black/10 border border-white/10 shadow-2xl shadow-black/20 pointer-events-auto">
+            <div className="flex flex-col space-y-3">
+              {navItems.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className={cn(
+                    "transition-colors duration-500 font-medium py-2 px-2 rounded-lg",
+                    colors.navText,
+                    isScrolled ? "hover:bg-white/10" : "hover:bg-black/10"
+                  )}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.name}
+                </a>
+              ))}
+
+              {/* Mobile Product of the day badge - keeping original orange gradient */}
+             
+
+              {/* Mobile Preview Button */}
+              <a
+                href="https://calendly.com/mentorque"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(
+                  "flex items-center justify-center space-x-2 px-4 py-2 rounded-xl transition-all duration-300 font-medium group transform hover:scale-[1.02] shadow-lg hover:shadow-xl",
+                  isScrolled 
+                    ? "bg-white text-gray-900 hover:bg-gray-100" 
+                    : "bg-gray-900 text-white hover:bg-black"
+                )}
+              >
+                <Flag size={16} className="transition-transform group-hover:translate-x-0.5" />
+                <span>Book free slot</span>
+              </a>
+            </div>
+          </div>
+        )}
+      </div>
+    </nav>
+  )
+}
+
+export default Navbar

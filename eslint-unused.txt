@@ -1,0 +1,59 @@
+
+/home/shrey/Desktop/buildShit/p-571704/src/components/CTA.tsx
+  26:35  warning  The ref value 'ctaRef.current' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy 'ctaRef.current' to a variable inside the effect, and use that variable in the cleanup function  react-hooks/exhaustive-deps
+
+/home/shrey/Desktop/buildShit/p-571704/src/components/CTASection.tsx
+  26:35  warning  The ref value 'ctaRef.current' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy 'ctaRef.current' to a variable inside the effect, and use that variable in the cleanup function  react-hooks/exhaustive-deps
+
+/home/shrey/Desktop/buildShit/p-571704/src/components/HumanoidSection.tsx
+  75:39  warning  The ref value 'sectionRef.current' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy 'sectionRef.current' to a variable inside the effect, and use that variable in the cleanup function  react-hooks/exhaustive-deps
+
+/home/shrey/Desktop/buildShit/p-571704/src/components/ui/Globe.tsx
+    3:57  error    'Group' is defined but never used                                                                                                         @typescript-eslint/no-unused-vars
+   85:7   error    'numbersOfRings' is assigned a value but never used                                                                                       @typescript-eslint/no-unused-vars
+  113:28  error    Unexpected any. Specify a different type                                                                                                  @typescript-eslint/no-explicit-any
+  148:13  error    'rgb' is assigned a value but never used                                                                                                  @typescript-eslint/no-unused-vars
+  204:20  error    'e' is defined but never used                                                                                                             @typescript-eslint/no-unused-vars
+  270:6   warning  React Hook useEffect has missing dependencies: 'gl', 'size.height', and 'size.width'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+  311:17  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components            react-refresh/only-export-components
+  327:17  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components            react-refresh/only-export-components
+
+/home/shrey/Desktop/buildShit/p-571704/src/components/ui/badge.tsx
+  36:17  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+/home/shrey/Desktop/buildShit/p-571704/src/components/ui/button.tsx
+  56:18  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+/home/shrey/Desktop/buildShit/p-571704/src/components/ui/calendar.tsx
+  55:25  error  '_props' is defined but never used  @typescript-eslint/no-unused-vars
+  56:26  error  '_props' is defined but never used  @typescript-eslint/no-unused-vars
+
+/home/shrey/Desktop/buildShit/p-571704/src/components/ui/chart.tsx
+  70:7  error  '_' is defined but never used  @typescript-eslint/no-unused-vars
+
+/home/shrey/Desktop/buildShit/p-571704/src/components/ui/command.tsx
+  24:11  error  An interface declaring no members is equivalent to its supertype  @typescript-eslint/no-empty-object-type
+
+/home/shrey/Desktop/buildShit/p-571704/src/components/ui/form.tsx
+  168:3  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+/home/shrey/Desktop/buildShit/p-571704/src/components/ui/navigation-menu.tsx
+  119:3  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+/home/shrey/Desktop/buildShit/p-571704/src/components/ui/sidebar.tsx
+  760:3  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+/home/shrey/Desktop/buildShit/p-571704/src/components/ui/textarea.tsx
+  5:18  error  An interface declaring no members is equivalent to its supertype  @typescript-eslint/no-empty-object-type
+
+/home/shrey/Desktop/buildShit/p-571704/src/components/ui/toggle.tsx
+  43:18  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+/home/shrey/Desktop/buildShit/p-571704/src/hooks/use-toast.ts
+  18:7  error  'actionTypes' is assigned a value but only used as a type  @typescript-eslint/no-unused-vars
+
+/home/shrey/Desktop/buildShit/p-571704/tailwind.config.ts
+  156:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+✖ 24 problems (12 errors, 12 warnings)
+

@@ -1,169 +1,209 @@
+"use client"
 
-import React, { useEffect, useRef, useState } from "react";
-import { CheckCircle, ArrowRight } from "lucide-react";
+import { useState, useEffect, useRef } from "react"
 
-const Weeks = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
+// Custom responsive image component that handles both vertical and horizontal images
+function ResponsiveImage({ src, alt, className, priority = false, ...props }) {
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [hasError, setHasError] = useState(false)
+  const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0 })
+  const [isVertical, setIsVertical] = useState(true)
+
+  const handleImageLoad = (e) => {
+    const img = e.target
+    const { naturalWidth, naturalHeight } = img
+    setImageDimensions({ width: naturalWidth, height: naturalHeight })
+    setIsVertical(naturalHeight > naturalWidth)
+    setIsLoaded(true)
+  }
+
+  return (
+    <div className="relative w-full h-full flex items-center justify-center">
+      {!isLoaded && !hasError && (
+        <div className="absolute inset-0 bg-gray-800/30 animate-pulse rounded-2xl" />
+      )}
+      <img
+        src={hasError ? "" : src}
+        alt={alt}
+        className={`max-w-full max-h-full object-contain rounded-2xl shadow-2xl transition-all duration-700 ease-out ${
+          isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"
+        } ${className}`}
+        loading={priority ? "eager" : "lazy"}
+        onLoad={handleImageLoad}
+        onError={() => {
+          setHasError(true)
+          setIsLoaded(true)
+        }}
+        {...props}
+      />
+    </div>
+  )
+}
+
+const scrollSections = [
+  {
+    id: 1,
+    title: "Crafted For Success",
+    content:
+      "Engineered by  industry experts. Hyper-personalized to your goals. Proven to deliver tangible results—fast.",
+    image: "/public/image1.png",
+    imageClassName: "scale-80", // Make the first image smaller
+  },
+  {
+    id: 2,
+    title: "Stunning Portfolios.",
+    content: `Your skills. Our design. One stunning portfolio that sets you apart. `,
+    image: `/portfolioooo.png`,
+    imageClassName: "scale-100", // Normal size
+  },
+  {
+    id: 3,
+    title: "AI Jobs Agent",
+    content:
+      "Reads what you read. Sees what you see. An AI Agent that replaces all the tab switching and answers all job search related query.",
+    image: "/hell.png?height=600&width=400&text=Integration",
+    imageClassName: "scale-110", // Slightly larger
+  },
+  {
+    id: 4,
+    title: "1:1 Mentorship",
+    content:
+      "Get accountable. Track everything. save months of trial and error. 1-1 coaching by MAANG mentors crafted to give you results, FAST.",
+    image: "/last.png?height=600&width=400&text=Privacy",
+    imageClassName: "scale-130", // Slightly smaller
+  },
+]
+
+export default function Component() {
+  const [currentSection, setCurrentSection] = useState(0)
+  const [imageVisible, setImageVisible] = useState(false)
+  const [isTransitioning, setIsTransitioning] = useState(false)
+  const containerRef = useRef(null)
+  const imageRef = useRef(null)
 
   useEffect(() => {
     const handleScroll = () => {
-      if (sectionRef.current) {
-        const rect = sectionRef.current.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        const elementHeight = rect.height;
-        
-        // Calculate scroll progress through the section
-        const progress = Math.max(0, Math.min(1, 
-          (windowHeight - rect.top) / (windowHeight + elementHeight)
-        ));
-        
-        setScrollProgress(progress);
+      if (!containerRef.current) return
+
+      const container = containerRef.current
+      const containerRect = container.getBoundingClientRect()
+      const containerTop = containerRect.top
+      const containerHeight = containerRect.height
+      const windowHeight = window.innerHeight
+
+      // Check if container is in view
+      if (containerTop <= windowHeight && containerTop + containerHeight >= 0) {
+        // Show image when section comes into view
+        if (!imageVisible && containerTop <= windowHeight * 0.8) {
+          setImageVisible(true)
+        }
+
+        // Calculate progress through the container with better mobile handling
+        const scrollProgress = Math.max(
+          0,
+          Math.min(1, (windowHeight * 0.5 - containerTop) / (windowHeight + containerHeight * 0.5)),
+        )
+
+        // Determine which section should be active based on scroll progress
+        const sectionIndex = Math.floor(scrollProgress * scrollSections.length)
+        const clampedIndex = Math.max(0, Math.min(scrollSections.length - 1, sectionIndex))
+
+        if (clampedIndex !== currentSection) {
+          setIsTransitioning(true)
+          setTimeout(() => {
+            setCurrentSection(clampedIndex)
+            setIsTransitioning(false)
+          }, 50) // Small delay to ensure smooth transition
+        }
+      } else if (containerTop > windowHeight) {
+        // Reset when scrolled back up
+        setImageVisible(false)
+        setCurrentSection(0)
       }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial call
-    
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const weeks = [
-    {
-      week: 1,
-      title: "Foundation & Assessment",
-      description: "Resume review, skill assessment, and goal setting with your dedicated mentor.",
-      tasks: ["Resume optimization", "Skills audit", "Career goal mapping", "Industry analysis"]
-    },
-    {
-      week: 2,
-      title: "Strategy Development",
-      description: "Create your personalized job search strategy and application materials.",
-      tasks: ["Job search strategy", "LinkedIn optimization", "Cover letter templates", "Portfolio review"]
-    },
-    {
-      week: 3,
-      title: "Application & Networking",
-      description: "Start applying strategically while building your professional network.",
-      tasks: ["Strategic applications", "Network building", "Interview preparation", "Follow-up systems"]
-    },
-    {
-      week: 4,
-      title: "Interview & Negotiation",
-      description: "Master interviews and learn to negotiate offers like a pro.",
-      tasks: ["Mock interviews", "Salary negotiation", "Offer evaluation", "Onboarding prep"]
     }
-  ];
+
+    window.addEventListener("scroll", handleScroll)
+    handleScroll() // Check initial state
+
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [currentSection, imageVisible])
 
   return (
-    <section className="py-20 bg-black relative overflow-hidden min-h-screen" id="weeks" ref={sectionRef}>
-      {/* Animated background elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white/5 rounded-full blur-3xl animate-pulse-slow"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-48 h-48 bg-white/3 rounded-full blur-2xl animate-float"></div>
-      </div>
-      
-      <div className="section-container relative z-10">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-white/10 text-white border border-white/20 mb-4 glass-chip">
-            <span>4-Week Journey</span>
-          </div>
-          <h2 className="section-title mb-4 text-white">Your Path to Success</h2>
-          <p className="section-subtitle mx-auto text-gray-300">
-            Follow our proven 4-week methodology to land your dream job.
-          </p>
-        </div>
-
-        {/* Vertical Stacking Cards - Made Wider */}
-        <div className="max-w-6xl mx-auto relative">
-          {/* Progress Line */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-white/30 via-white/20 to-white/10 transform -translate-x-1/2">
-            <div 
-              className="absolute top-0 left-0 w-full bg-white transition-all duration-300 ease-out"
-              style={{ 
-                height: `${scrollProgress * 100}%`,
-                boxShadow: '0 0 10px rgba(255, 255, 255, 0.5)'
-              }}
-            ></div>
-          </div>
-
-          <div className="space-y-8">
-            {weeks.map((week, index) => {
-              const cardProgress = Math.max(0, Math.min(1, (scrollProgress * 4) - index));
-              const isActive = cardProgress > 0;
-              const scale = 0.9 + (cardProgress * 0.1);
-              const translateY = (1 - cardProgress) * 50;
-              const opacity = 0.3 + (cardProgress * 0.7);
-
-              return (
-                <div 
-                  key={index}
-                  className="relative"
-                  style={{
-                    transform: `translateY(${translateY}px) scale(${scale})`,
-                    opacity: opacity,
-                    transition: 'all 0.3s ease-out'
-                  }}
-                >
-                  <div className={`glass-card rounded-2xl p-10 lg:p-12 xl:p-16 relative overflow-hidden transition-all duration-500 ${
-                    isActive 
-                      ? 'border-white/40 bg-white/10 shadow-lg shadow-white/10' 
-                      : 'border-white/10 bg-white/5'
-                  }`}>
-                    {/* Week number positioned on the line */}
-                    <div className={`absolute left-1/2 top-0 w-12 h-12 rounded-full flex items-center justify-center font-bold transition-all duration-500 transform -translate-x-1/2 -translate-y-6 z-10 ${
-                      isActive 
-                        ? 'bg-white text-black shadow-lg shadow-white/20' 
-                        : 'bg-white/20 text-white'
-                    }`}>
-                      {week.week}
-                    </div>
-                    
-                    <div className="text-center pt-8">
-                      <h3 className="text-3xl lg:text-4xl font-semibold mb-6 text-white">
-                        {week.title}
-                      </h3>
-                      
-                      <p className="text-gray-300 mb-8 leading-relaxed text-lg lg:text-xl max-w-3xl mx-auto">
-                        {week.description}
-                      </p>
-                      
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 max-w-4xl mx-auto">
-                        {week.tasks.map((task, taskIndex) => (
-                          <div key={taskIndex} className="flex items-center text-base lg:text-lg text-gray-400 bg-white/5 rounded-lg p-4 border border-white/10">
-                            <CheckCircle className="w-5 h-5 mr-4 flex-shrink-0 text-white/60" />
-                            <span>{task}</span>
-                          </div>
-                        ))}
+    <div className="bg-black">
+      {/* Sticky scroll section */}
+      <div ref={containerRef} className="relative" style={{ height: `${scrollSections.length * 100}vh` }}>
+        {/* Sticky image container */}
+        <div className="sticky top-0 h-screen flex items-center">
+          <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+            <div className="flex flex-col lg:grid lg:grid-cols-2 gap-6 lg:gap-16 items-center justify-center min-h-screen px-4 lg:px-0">
+              {/* Image - Top on mobile, Left on desktop */}
+              <div
+                ref={imageRef}
+                className={`relative transition-all duration-1000 ease-out w-full lg:w-auto ${
+                  imageVisible ? "translate-y-0 opacity-100" : "translate-y-32 opacity-0"
+                }`}
+              >
+                {/* Flexible container that adapts to image orientation - 20% bigger */}
+                <div className="relative w-full h-80 sm:h-96 lg:h-[600px] xl:h-[720px] max-w-md mx-auto lg:max-w-3xl">
+                  {/* Image stack for smooth crossfade */}
+                  <div className="absolute inset-0">
+                    {scrollSections.map((section, index) => (
+                      <div
+                        key={section.id}
+                        className={`absolute inset-0 transition-all duration-500 ease-out ${
+                          index === currentSection 
+                            ? "opacity-100" 
+                            : "opacity-0 pointer-events-none"
+                        }`}
+                      >
+                        <div className={`w-full h-full transition-transform duration-500 ease-out ${
+                          section.imageClassName 
+                        }`}>
+                          <ResponsiveImage
+                            src={section.image || "/placeholder.svg"}
+                            alt={section.title}
+                            className=""
+                            priority={index === 0}
+                          />
+                        </div>
                       </div>
-                    </div>
-
-                    {/* Animated glow effect for active week */}
-                    {isActive && (
-                      <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50 rounded-2xl animate-pulse"></div>
-                    )}
+                    ))}
                   </div>
                 </div>
-              );
-            })}
+              </div>
+
+              {/* Text content - Bottom on mobile, Right on desktop */}
+              <div className="space-y-4 lg:space-y-8 w-full lg:w-auto text-center lg:text-left">
+                <div
+                  key={currentSection}
+                  className={`transition-all duration-300 ease-out ${
+                    isTransitioning ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"
+                  }`}
+                >
+                  <h2 className="text-3xl sm:text-4xl lg:text-5xl  text-white mb-4 lg:mb-6">
+                    {scrollSections[currentSection].title}
+                  </h2>
+                  <p className="text-xl md:text-2xl text-gray-100 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                    {scrollSections[currentSection].content}
+                  </p>
+                </div>
+
+                {/* Progress indicators */}
+                <div className="flex justify-center lg:justify-start space-x-2">
+                  {scrollSections.map((_, index) => (
+                    <div
+                      key={index}
+                      className={`h-2 w-8 rounded-full transition-all duration-300 ${
+                        index === currentSection ? "bg-white w-12" : "bg-gray-600"
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-
-        {/* Call to action */}
-        <div className="text-center mt-16">
-          <a 
-            href="https://calendly.com/mentorque"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 glass-button px-8 py-3 rounded-full border border-white/20 hover:border-white/40 text-white transition-all duration-300 hover:scale-105 group"
-          >
-            Start Your Journey
-            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-          </a>
-        </div>
       </div>
-    </section>
-  );
-};
-
-export default Weeks;
+    </div>
+  )
+}

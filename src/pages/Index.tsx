@@ -1,13 +1,14 @@
 
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import LogoCarousel from "@/components/LogoCarousel";
 import About from "@/components/About";
-import Weeks from "@/components/Weeks";
-import TestimonialsBento from "@/components/TestimonialsBento";
-import BookAppointment from "@/components/BookAppointment";
 import Footer from "@/components/Footer";
+import TestimonialCarousel from "@/components/Testimonials";
+import Component from "@/components/Weeks";
+import MentorqueFAQ from "@/components/faq";
+import FierceImageCarousel from "@/components/whatsApp";
 
 const Index = () => {
   // Initialize intersection observer to detect when elements enter viewport
@@ -59,12 +60,30 @@ const Index = () => {
     <div className="min-h-screen bg-black text-white">
       <Navbar />
       <main className="space-y-0">
+        <section id="hero">
+
         <Hero />
-        <LogoCarousel />
+        </section>
+
+       <LogoCarousel />
+        <FierceImageCarousel/>
+
+       <section id="About">
+
         <About />
-        <Weeks />
-        <TestimonialsBento />
-        <BookAppointment />
+       </section>
+
+       < section id="Journey">
+        <Component/>
+       </section>
+       <section id="Testimonials">
+
+        <TestimonialCarousel />
+       </section>
+       <section id="FAQ">
+
+        <MentorqueFAQ/>
+       </section>
       </main>
       <Footer />
     </div>

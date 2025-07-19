@@ -43,34 +43,34 @@ function ResponsiveImage({ src, alt, className, priority = false, ...props }) {
 const scrollSections = [
   {
     id: 1,
-    title: "Crafted For Success",
+    title: "1:1 Mentorships",
     content:
-      "Engineered by  industry experts. Hyper-personalized to your goals. Proven to deliver tangible results—fast.",
-    image: "/public/image1.png",
-    imageClassName: "scale-80", // Make the first image smaller
+    "Get accountable. Track everything. save months of trial and error. 1-1 Coaching and Mock Interviews by MAANG Engineers to keep you ahead of the curve.",
+    image: "/mentorshipImage.jpg?height=600&width=400&text=Privacy",
+    imageClassName: "scale-130", // Slightly smaller
   },
   {
     id: 2,
-    title: "Stunning Portfolios.",
-    content: `Your skills. Our design. One stunning portfolio that sets you apart. `,
-    image: `/portfolioooo.png`,
-    imageClassName: "scale-100", // Normal size
+    title: "Mentorque AI",
+    content:
+    "Reads what you read. Sees what you see. Powered by Gemini 2.5-Flash that replaces all the tab switching and answers everything related to your job search.",
+    image: "/AIagentImage.jpg",
+    imageClassName: "scale-", // Slightly larger
   },
   {
     id: 3,
-    title: "AI Jobs Agent",
+    title: "Crafted For Success",
     content:
-      "Reads what you read. Sees what you see. An AI Agent that replaces all the tab switching and answers all job search related query.",
-    image: "/hell.png?height=600&width=400&text=Integration",
-    imageClassName: "scale-110", // Slightly larger
+      "Resumes tailored by  industry experts. Hyper-personalized to your goals. Proven to deliver tangible results—fast.",
+    image: "/ResumeImage.png",
+    imageClassName: "scale-120", // Make the first image smaller
   },
   {
     id: 4,
-    title: "1:1 Mentorship",
-    content:
-      "Get accountable. Track everything. save months of trial and error. 1-1 coaching by MAANG mentors crafted to give you results, FAST.",
-    image: "/last.png?height=600&width=400&text=Privacy",
-    imageClassName: "scale-130", // Slightly smaller
+    title: "Portfolios that Convert",
+    content: `Your skills. Our design. One stunning portfolio that sets you apart, increasing your odds of getting call-backs.`,
+    image: `/portfolioooo.png`,
+    imageClassName: "scale-130", // Normal size
   },
 ]
 
@@ -183,7 +183,7 @@ export default function Component() {
                   <h2 className="text-3xl sm:text-4xl lg:text-5xl  text-white mb-4 lg:mb-6">
                     {scrollSections[currentSection].title}
                   </h2>
-                  <p className="text-xl md:text-2xl text-gray-100 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                  <p className="text-xl md:text-xl text-gray-100 leading-relaxed max-w-2xl mx-auto lg:mx-0">
                     {scrollSections[currentSection].content}
                   </p>
                 </div>

@@ -8,31 +8,73 @@ export default function FierceImageCarousel() {
   const carouselRef = useRef<HTMLDivElement>(null)
 
   const items = [
+       {
+      title: "Japan",
+      image: "/hi.PNG?height=480&width=340",
+      scale: 1.1,
+    },
+     
     {
-      title: "Tyler Durden",
-      image: "/placeholder.svg?height=400&width=300",
+      title: "Norway",
+      image: "/screen/imp1.jpg?height=420&width=310",
       scale: 1.0,
     },
-    {
+       {
       title: "The Narrator",
-      image: "/placeholder.svg?height=500&width=350",
+      image: "/screen/15.png?height=500&width=350",
       scale: 1.2,
     },
     {
       title: "Iceland",
-      image: "/placeholder.svg?height=450&width=320",
+      image: "/screen/16.png?height=450&width=320",
       scale: 0.9,
     },
     {
       title: "Japan",
-      image: "/placeholder.svg?height=480&width=340",
+      image: "/screen/17.png?height=480&width=340",
       scale: 1.1,
     },
     {
       title: "Norway",
-      image: "/placeholder.svg?height=420&width=310",
+      image: "/screen/18.jpeg?height=420&width=310",
       scale: 1.0,
     },
+     {
+      title: "Norway",
+      image: "/screen/19.jpeg?height=420&width=310",
+      scale: 1.0,
+    },
+      {
+      title: "Norway",
+      image: "/screen/20.jpeg?height=420&width=310",
+      scale: 1.0,
+    },
+    {
+      title: "Tyler Durden",
+      image: "/screen/6.jpg?height=400&width=300",
+      scale: 1.4,
+    },
+    {
+      title: "The Narrator",
+      image: "/screen/7.jpg?height=500&width=350",
+      scale: 1.2,
+    },
+    {
+      title: "Iceland",
+      image: "/screen/10.jpg?height=450&width=320",
+      scale: 0.9,
+    },
+    {
+      title: "Japan",
+      image: "/screen/12.png?height=480&width=340",
+      scale: 1.1,
+    },
+    {
+      title: "Norway",
+      image: "/screen/14.png?height=420&width=310",
+      scale: 1.0,
+    },
+   
   ]
 
   const nextSlide = () => {
@@ -83,17 +125,17 @@ export default function FierceImageCarousel() {
           <div className="hidden md:block">
             <button
               onClick={prevSlide}
-              className="absolute left-8 lg:left-40 top-1/2 -translate-y-1/2 z-50 p-3 rounded-full bg-black/80 "
+              className="absolute left-1/4 top-1/2 -translate-y-1/2 z-50 p-3 rounded-full bg-black/80 "
               aria-label="Previous image"
             >
-              <ChevronLeft className="w-6 h-6 text-white" />
+              <ChevronLeft className="w-12 h-12 text-white" />
             </button>
             <button
               onClick={nextSlide}
-              className="absolute right-8 lg:right-40 top-1/2 -translate-y-1/2 z-50 p-3 rounded-full bg-black/80 "
+              className="absolute right-1/4 top-1/2 -translate-y-1/2 z-50 p-3 rounded-full bg-black/80 "
               aria-label="Next image"
             >
-              <ChevronRight className="w-6 h-6 text-white" />
+              <ChevronRight className="w-12 h-12 text-white" />
             </button>
           </div>
 
@@ -112,7 +154,7 @@ export default function FierceImageCarousel() {
                 <div key={index} className="min-w-full flex items-center justify-center py-4 sm:py-6 md:py-8">
                   {/* Image Card - Dynamic size based on image and scale */}
                   <div
-                    className="relative inline-block border border-white/20 rounded"
+                    className="relative inline-block rounded"
                     style={{
                       transform: `scale(${item.scale})`,
                     }}
@@ -132,17 +174,17 @@ export default function FierceImageCarousel() {
           <div className="flex md:hidden justify-center gap-6 mt-4 mb-2">
             <button
               onClick={prevSlide}
-              className="p-2.5 rounded-full bg-black/80 border border-white/30"
+              className="p-2.5 rounded-full bg-black/80"
               aria-label="Previous image"
             >
-              <ChevronLeft className="w-5 h-5 text-white" />
+              <ChevronLeft className="w-8 h-8 text-white" />
             </button>
             <button
               onClick={nextSlide}
-              className="p-2.5 rounded-full bg-black/80 border border-white/30"
+              className="p-2.5 rounded-full bg-black/80"
               aria-label="Next image"
             >
-              <ChevronRight className="w-5 h-5 text-white" />
+              <ChevronRight className="w-8 h-8 text-white" />
             </button>
           </div>
 
@@ -169,7 +211,7 @@ export default function FierceImageCarousel() {
         </h2>
         <div className="flex justify-center mt-6 md:mt-12">
           <a
-            href="https://calendly.com/mentorque"
+            href="https://calendly.com/mentorquedu-info/30min"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center bg-white text-black font-bold py-3 px-5 md:py-4 md:px-6 rounded-full text-sm md:text-base lg:text-lg border border-white/20"

@@ -14,14 +14,14 @@ const TestimonialCarousel = () => {
       content:
         "Doing self prep, I couldn't even get any call backs from companies. The resume and portfolios built by Reshu and team were a gamechanger. 100% recommended. ",
       rating: 5,
-      avatar: "/public/nilesh.jpeg",
+      avatar: "/nilesh.jpeg",
     },
     {
       id: 2,
       name: "Jagruthi C",
       content: "Agniva’s guidance, personal progress tracking and LLM powered resume tools simplified my job hunt process and saved me a lot of time.",
       rating: 4,
-      avatar: "/public/jagruti.jpeg",
+      avatar: "/jagruti.jpeg",
     },
     {
        id: 3,
@@ -30,7 +30,7 @@ const TestimonialCarousel = () => {
       content: "Few sessions with Agniva and Raajit saved me months of trial and error. Would highly recommend for getting calls faster!",
       rating: 5,
       
-      avatar: "/public/3.jpeg",
+      avatar: "/3.jpeg",
     },
     {
        id: 4,
@@ -38,7 +38,7 @@ const TestimonialCarousel = () => {
    
       content: "Steadfast support from Reshu plus the chrome extension made my job search much more faster and effective.                           ",
       rating: 5,
-      avatar: "/public/dev.jpeg",
+      avatar: "/dev.jpeg",
     },
     {
       id: 5,
@@ -46,7 +46,7 @@ const TestimonialCarousel = () => {
 
       content: "The resume session helped me realise crucial ATS related mistakes and hear back from mutiple companies including Amazon.                       ",
       rating: 4,
-      avatar: "/public/anshul.jpeg",
+      avatar: "/anshul.jpeg",
     },
     {
        id: 6,
@@ -54,7 +54,7 @@ const TestimonialCarousel = () => {
 
       content: "The mock interviews with Raajit and Agniva were crucial in securing my internship offer.                                                    ",
       rating: 5,
-      avatar: "/public/rigved.jpeg",
+      avatar: "/rigved.jpeg",
     },
     {
         id: 7,
@@ -62,7 +62,7 @@ const TestimonialCarousel = () => {
 
       content: "Frequent mentor calls pinpointed crucial issues, refined my application strategy, and helped me in getting 4-5 calls in 1 month.",
       rating: 5,
-      avatar: "/public/surbhi.jpeg",
+      avatar: "/surbhi.jpeg",
     },
      {
           id: 8,
@@ -70,7 +70,7 @@ const TestimonialCarousel = () => {
 
       content: "Mentorque's steadfast approach and end to end mock interview calls helped me crack a role in Bosch.                                ",
       rating: 4,
-      avatar: "/public/ss.jpeg",
+      avatar: "/ss.jpeg",
     }
   ]
 

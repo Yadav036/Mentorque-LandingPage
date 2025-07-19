@@ -33,10 +33,10 @@ const Hero = () => {
   const scrollMax = window.innerHeight * 1.1
   const scrollProgress = Math.max(0, Math.min((scrollY - scrollThreshold) / (scrollMax - scrollThreshold), 1))
 
-  const words = ["Resume", "PortFolio", "Elevator Pitch", "Mock interviews"]
+  const words = ["Resume", "PortFolio","AI Agent", "Elevator Pitch", "Personal Mentor","Mock Interviews"]
 
   return (
-    <section className="relative min-h-[120vh] flex items-center justify-center overflow-hidden" id="hero">
+    <section className="relative min-h-[120vh] w-full flex items-center justify-center overflow-hidden" id="hero">
       {/* Blue gradient background that transitions to black after scroll threshold */}
       <div
         className="absolute inset-0 w-full h-full transition-all duration-200 ease-out"
@@ -98,7 +98,7 @@ const Hero = () => {
                     <div className="text-2xl sm:text-3xl md:text-4xl font-semibold text-neutral-600 dark:text-neutral-400">
                       Your
                       <FlipWords words={words} />
-                      sorted
+                     
                     </div>
 
                     {/* Description */}
@@ -118,13 +118,13 @@ const Hero = () => {
                       style={{ animationDelay: "0.7s" }}
                     >
                       <a
-                        href="https://calendly.com/mentorque"
+                        href="https://calendly.com/mentorquedu-info/30min"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center justify-center group w-full sm:w-auto text-center bg-gray-900 text-white hover:bg-black font-semibold py-3 sm:py-4 px-6 sm:px-8 lg:px-10 rounded-full transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-[1.02] text-base sm:text-lg"
                       >
                         <Calendar className="mr-2 sm:mr-3 w-5 h-5 sm:w-6 sm:h-6" />
-                        Book Appointment
+                        Book Free Session
                         <ArrowUpRight className="ml-2 sm:ml-3 w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover:translate-x-1" />
                       </a>
                     </div>

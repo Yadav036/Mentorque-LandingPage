@@ -32,7 +32,7 @@ const About = () => {
           style={{ animationDelay: "0.7s" }}
         >
           <a
-            href="https://calendly.com/mentorquedu-info/30min"
+            href="https://forms.gle/6hVobj9kater6voE8"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center group text-center bg-gradient-to-r from-white to-gray-100 text-black font-bold py-5 px-6 rounded-full transition-all duration-500 shadow-2xl hover:shadow-white/30 transform hover:scale-105 text-lg backdrop-blur-sm border border-white/20 hover:from-blue-50 hover:to-white w-fit mx-auto"          >

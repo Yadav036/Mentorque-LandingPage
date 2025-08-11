@@ -211,7 +211,7 @@ export default function FierceImageCarousel() {
         </h2>
         <div className="flex justify-center mt-6 md:mt-12">
           <a
-            href="https://calendly.com/mentorquedu-info/30min"
+            href="https://forms.gle/6hVobj9kater6voE8"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center bg-white text-black font-bold py-3 px-5 md:py-4 md:px-6 rounded-full text-sm md:text-base lg:text-lg border border-white/20"

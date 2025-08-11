@@ -118,7 +118,7 @@ const Hero = () => {
                       style={{ animationDelay: "0.7s" }}
                     >
                       <a
-                        href="https://calendly.com/mentorquedu-info/30min"
+                        href="https://forms.gle/6hVobj9kater6voE8"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center justify-center group w-full sm:w-auto text-center bg-gray-900 text-white hover:bg-black font-semibold py-3 sm:py-4 px-6 sm:px-8 lg:px-10 rounded-full transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-[1.02] text-base sm:text-lg"

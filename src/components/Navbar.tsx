@@ -20,7 +20,7 @@ const Navbar = () => {
     { name: "Clients", href: "#Clients" },
     { name: "About", href: "#About" },
     { name: "Services", href: "#services" },
-    { name: "Testemonials", href: "#Testemonials" },
+    { name: "Testimonials", href: "#Testimonials" },
     { name: "FAQ's", href: "#FAQ" },
   ]
 
@@ -150,7 +150,7 @@ const Navbar = () => {
 
               {/* Mobile Preview Button */}
               <a
-                href="https://calendly.com/mentorquedu-info/30min"
+                href="https://forms.gle/6hVobj9kater6voE8"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={cn(

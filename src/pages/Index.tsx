@@ -62,7 +62,7 @@ const Index = () => {
     { name: "Clients", href: "#Clients" },
     { name: "About", href: "#About" },
     { name: "Services", href: "#services" },
-    { name: "Testemonials", href: "#Testemonials" },
+    { name: "Testimonials", href: "#Testimonials" },
     { name: "FAQ's", href: "#FAQ" },
       <Navbar /> */}
       <Navbar />
@@ -83,7 +83,7 @@ const Index = () => {
 
           <Component />
         </section>
-        <section id="Testemonials">
+        <section id="Testimonials">
 
           <TestimonialCarousel />
         </section>

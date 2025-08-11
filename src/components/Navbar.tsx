@@ -24,6 +24,7 @@ const Navbar = () => {
     { name: "FAQ's", href: "#FAQ" },
   ]
 
+  
   // Dynamic color classes based on background
   const getTextColors = () => {
     if (isScrolled) {

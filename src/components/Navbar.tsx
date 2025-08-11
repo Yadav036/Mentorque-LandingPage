@@ -24,7 +24,7 @@ const Navbar = () => {
     { name: "FAQ's", href: "#FAQ" },
   ]
 
-  
+
   // Dynamic color classes based on background
   const getTextColors = () => {
     if (isScrolled) {
@@ -86,7 +86,7 @@ const Navbar = () => {
 
           {/* Preview Button */}
           <a
-            href="https://calendly.com/mentorquedu-info/30min"
+            href="https://forms.gle/6hVobj9kater6voE8"
             target="_blank"
             rel="noopener noreferrer"
             className={cn(

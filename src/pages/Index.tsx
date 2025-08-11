@@ -65,7 +65,6 @@ const Index = () => {
     { name: "Testimonials", href: "#Testimonials" },
     { name: "FAQ's", href: "#FAQ" },
       <Navbar /> */}
-      
       <Navbar />
       <main className="space-y-0">
         <section id="Home">

@@ -1,42 +1,5 @@
 
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-/* globals.css */
 body {
   background: linear-gradient(
     135deg,
@@ -47,9 +10,6 @@ body {
     rgb(139, 92, 246) 100%
   );
 }
-/* Add these animations to your App.css file */
-
-/* Shimmer effect for the progress bar */
 @keyframes shimmer {
   0% {
     transform: translateX(-100%);
@@ -63,7 +23,7 @@ body {
   animation: shimmer 2s infinite linear;
 }
 
-/* Wave effect for progress animation */
+
 @keyframes wave {
   0% {
     transform: translateX(-100%) scaleX(0);
@@ -80,9 +40,6 @@ body {
   animation: wave 2.5s infinite ease-in-out;
 }
 
-
-
-/* Pulse effect for button background */
 @keyframes pulse-green {
   0%, 100% {
     opacity: 0.8;
@@ -96,7 +53,7 @@ body {
   animation: pulse-green 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-/* Progress bar fill animation */
+
 @keyframes progress-fill {
   0% {
     width: 0%;
@@ -119,7 +76,6 @@ body {
   animation: progress-fill 3s ease-out forwards;
 }
 
-/* Glow effect */
 @keyframes glow-green {
   0%, 100% {
     box-shadow: 0 0 5px rgba(34, 197, 94, 0.5);

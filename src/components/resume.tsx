@@ -76,7 +76,7 @@ export default function Resume() {
         {/* Left side - Text */}
         <div className="space-y-8 text-center lg:text-left">
           <h2 className="text-4xl md:text-6xl font-bold text-white leading-tight">
-            Resume <span className="text-blue-400">Transformation</span>
+            Crafted for <span className="text-blue-400">Success</span>
           </h2>
 
           <p className="text-xl md:text-2xl text-gray-100 leading-relaxed max-w-2xl mx-auto lg:mx-0">

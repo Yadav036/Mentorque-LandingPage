@@ -3,13 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body, #__next {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  background-color: black; /* ensures no white shows */
-  color: white;
-}
 
 
 @layer base {

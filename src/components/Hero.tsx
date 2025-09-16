@@ -3,6 +3,8 @@
 import { ArrowUpRight, Calendar } from "lucide-react"
 import { useEffect, useState } from "react"
 import { FlipWords } from "./ui/flipCard"
+import { Link } from "react-router-dom";
+
 
 const Hero = () => {
   const [scrollY, setScrollY] = useState(0)
@@ -117,16 +119,14 @@ const Hero = () => {
                       className="flex flex-col sm:flex-row gap-2 opacity-0 animate-fade-in justify-center"
                       style={{ animationDelay: "0.7s" }}
                     >
-                      <a
-                        href="https://forms.gle/6hVobj9kater6voE8"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-center group w-full sm:w-auto text-center bg-gray-900 text-white hover:bg-black font-semibold py-3 sm:py-4 px-6 sm:px-8 lg:px-10 rounded-full transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-[1.02] text-base sm:text-lg"
-                      >
-                        <Calendar className="mr-2 sm:mr-3 w-5 h-5 sm:w-6 sm:h-6" />
-                        Book Free Session
-                        <ArrowUpRight className="ml-2 sm:ml-3 w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover:translate-x-1" />
-                      </a>
+                      <Link
+  to="/book-call"
+  className="flex items-center justify-center group w-full sm:w-auto text-center bg-gray-900 text-white hover:bg-black font-semibold py-3 sm:py-4 px-6 sm:px-8 lg:px-10 rounded-full transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-[1.02] text-base sm:text-lg"
+>
+  <Calendar className="mr-2 sm:mr-3 w-5 h-5 sm:w-6 sm:h-6" />
+  Book Free Session
+  <ArrowUpRight className="ml-2 sm:ml-3 w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover:translate-x-1" />
+</Link>
                     </div>
                   </div>
                 </div>

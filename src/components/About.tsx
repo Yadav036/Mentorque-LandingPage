@@ -1,5 +1,7 @@
 "use client"
 import { ArrowUpRight, Calendar, } from "lucide-react"
+import { Link } from "react-router-dom";
+
 
 import ScrollTextReveal from "./ui/scrollTextReveal"
 import ScrollChatReveal from "./chatReveal"
@@ -31,15 +33,14 @@ const About = () => {
           className="flex flex-col sm:flex-row opacity-0 animate-fade-in justify-center mt-12"
           style={{ animationDelay: "0.7s" }}
         >
-          <a
-            href="https://forms.gle/6hVobj9kater6voE8"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center group text-center bg-gradient-to-r from-white to-gray-100 text-black font-bold py-5 px-6 rounded-full transition-all duration-500 shadow-2xl hover:shadow-white/30 transform hover:scale-105 text-lg backdrop-blur-sm border border-white/20 hover:from-blue-50 hover:to-white w-fit mx-auto"          >
-            <Calendar className="mr-3 w-6 h-6" />
-            Book Now
-            <ArrowUpRight className="ml-3 w-6 h-6 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-          </a>
+         <Link
+  to="/book-call"
+  className="flex items-center justify-center group text-center bg-gradient-to-r from-white to-gray-100 text-black font-bold py-5 px-6 rounded-full transition-all duration-500 shadow-2xl hover:shadow-white/30 transform hover:scale-105 text-lg backdrop-blur-sm border border-white/20 hover:from-blue-50 hover:to-white w-fit mx-auto"
+>
+  <Calendar className="mr-3 w-6 h-6" />
+  Book Now
+  <ArrowUpRight className="ml-3 w-6 h-6 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+</Link>
         </div>
       </div>
       </div>

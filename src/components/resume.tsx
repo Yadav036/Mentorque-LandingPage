@@ -51,23 +51,7 @@ export default function Resume() {
   }, [isVisible])
 
   // Generate smooth curve points
-  const generatePath = () => {
-    const points = []
-    const width = 140
-    const height = 60
-    const segments = 20
-    
-    for (let i = 0; i <= segments; i++) {
-      const x = (i / segments) * width
-      const progress = i / segments
-      // Smooth easing curve
-      const eased = 1 - Math.pow(1 - progress, 3)
-      const y = height - (eased * height * 0.8) - Math.sin(progress * Math.PI * 2) * 3
-      points.push(`${x},${y}`)
-    }
-    
-    return `M ${points.join(' L ')}`
-  }
+  
 
   return (
     <div ref={sectionRef} className="bg-black py-12 px-4 md:px-8 lg:px-12">

@@ -31,7 +31,7 @@ const Navbar = () => {
 
 
   const navItems = [
-    { name: "Home", href: "/#Hero" },
+    { name: "Home", href: "/#Home" },
     { name: "Clients", href: "/#Clients" },
     { name: "About", href: "/#About" },
     { name: "Structure", href: "/#ProgressiveTimeline" },
@@ -87,20 +87,15 @@ const Navbar = () => {
               : "backdrop-blur-xl bg-white/5 border-white/10 shadow-none"
           )}
         >
-          {/* Logo */}
-          <div className="flex items-center">
-            <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center mr-3">
-              <div className="w-5 h-5 bg-black rounded-sm"></div>
-            </div>
-            <span
-              className={cn(
-                "font-bold text-xl transition-colors duration-500",
-                colors.logoText
-              )}
-            >
-              Mentorque
-            </span>
-          </div>
+        <Link to="/#Home" className="flex items-center">
+  <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center mr-3">
+    <div className="w-5 h-5 bg-black rounded-sm"></div>
+  </div>
+  <span className={cn("font-bold text-xl transition-colors duration-500", colors.logoText)}>
+    Mentorque
+  </span>
+</Link>
+
 
           {/* Navigation Links */}
           <div className="flex items-center space-x-8">
@@ -146,19 +141,15 @@ const Navbar = () => {
           style={{ minHeight: 52 }}
         >
           {/* Mobile Logo */}
-          <div className="flex items-center mr-9">
-            <div className="w-7 h-7 bg-white rounded-lg flex items-center justify-center mr-2.5">
-              <div className="w-4 h-4 bg-black rounded-sm"></div>
-            </div>
-            <span
-              className={cn(
-                "font-bold text-lg transition-colors duration-500",
-                colors.logoText
-              )}
-            >
-              Mentorque
-            </span>
-          </div>
+          <Link to="/#Home" className="flex items-center mr-9">
+  <div className="w-7 h-7 bg-white rounded-lg flex items-center justify-center mr-2.5">
+    <div className="w-4 h-4 bg-black rounded-sm"></div>
+  </div>
+  <span className={cn("font-bold text-lg transition-colors duration-500", colors.logoText)}>
+    Mentorque
+  </span>
+</Link>
+
 
           {/* Mobile Menu Button */}
           <button

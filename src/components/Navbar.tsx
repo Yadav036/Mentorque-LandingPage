@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Menu, X, Flag, Calendar } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -17,28 +18,49 @@ const Navbar = () => {
     { name: "Home", href: "#Home" },
     { name: "Clients", href: "#Clients" },
     { name: "About", href: "#About" },
+    { name: "Structure", href: "#ProgressiveTimeline" },
     { name: "Services", href: "#services" },
     { name: "Testimonials", href: "#Testimonials" },
     { name: "FAQ's", href: "#FAQ" },
   ];
 
- const getTextColors = () =>
-  isScrolled
-    ? {
+  const getTextColors = () => {
+    if (location.pathname === "/") {
+      // Home page → black before scroll, white after scroll
+      return isScrolled
+        ? {
+            logoText: "text-white",
+            navText: "text-white/80 hover:text-white",
+            iconColor: "text-white",
+          }
+        : {
+            logoText: "text-gray-900",
+            navText: "text-gray-700 hover:text-gray-900",
+            iconColor: "text-gray-900",
+          };
+    }
+
+    if (location.pathname === "*") {
+      // NotFound → always white
+      return {
         logoText: "text-white",
-        navText: "text-white/80 hover:text-white", 
+        navText: "text-white/80 hover:text-white",
         iconColor: "text-white",
-      }
-    : {
-        logoText: "text-white",           // Changed from text-gray-900
-        navText: "text-white/80 hover:text-white",  // Changed from text-gray-700 hover:text-gray-900
-        iconColor: "text-white",         // Changed from text-gray-900
       };
+    }
+
+    // All other routes → always black
+    return {
+       logoText: "text-white",
+        navText: "text-white/80 hover:text-white",
+        iconColor: "text-white"
+    };
+  };
 
   const colors = getTextColors();
 
   return (
-    <nav className="fixed top-4 left-0 right-0 z-[1000] flex justify-center items-start pointer-events-none">
+   <nav className="fixed top-4 left-0 right-0 z-[1000] flex justify-center items-start pointer-events-none">
       <div className="max-w-6xl md:w-full px-[7px]">
         {/* Desktop Navbar */}
         <div
@@ -151,6 +173,7 @@ const Navbar = () => {
         )}
       </div>
     </nav>
+
   );
 };
 

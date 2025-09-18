@@ -4,8 +4,8 @@ import { useState, useEffect, useRef } from "react"
 import BeforeAfterSlider from "./BeforeAfterSlider"
 
 export default function Resume() {
-  const afterResume = "/before.webp"
-  const beforeResume = "/after.webp"
+  const afterResume = "/before.jpeg"
+  const beforeResume = "/after.jpeg"
   
   const [animatedValue, setAnimatedValue] = useState(0)
   const [isVisible, setIsVisible] = useState(false)
@@ -106,7 +106,7 @@ export default function Resume() {
               before={beforeResume}
               after={afterResume}
               width={595}
-              height={750}
+              height={730}
             />
           </div>
         </div>

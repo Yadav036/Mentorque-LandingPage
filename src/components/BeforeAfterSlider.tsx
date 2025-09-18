@@ -298,7 +298,7 @@ export default function BeforeAfterSlider({
         
         {/* After label overlay */}
         <div className="absolute bottom-4 right-4 bg-black bg-opacity-80 text-white px-3 py-1.5 rounded-lg text-sm font-semibold backdrop-blur-sm border border-white border-opacity-20">
-          AFTER
+          BEFORE
         </div>
         
         {/* Before image (clipped overlay) */}
@@ -317,7 +317,7 @@ export default function BeforeAfterSlider({
           
           {/* Before label overlay */}
           <div className="absolute bottom-4 left-4 bg-black bg-opacity-80 text-white px-3 py-1.5 rounded-lg text-sm font-semibold backdrop-blur-sm border border-white border-opacity-20">
-            BEFORE
+            AFTER
           </div>
         </div>
       </div>

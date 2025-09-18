@@ -2,7 +2,8 @@ import { MessageSquare, Users, FileText, Star, CheckCircle, Clock, Target, Zap, 
 import React, { useState, useEffect, useRef } from 'react';
 
 import Navbar from '@/components/Navbar';
-import WhatsAppCTA from '@/components/WhatsAppCTA';
+import CalendarCTA from '@/components/CalendarCTA';
+
 
 const MockInterview = () => {
   const [animatedCards, setAnimatedCards] = useState(new Set());
@@ -269,7 +270,6 @@ const MockInterview = () => {
                       </span>
                     </div>
                     <div className="mb-6 text-blue-400">{week.icon}</div>
-                    <WhatsAppCTA label={`Week ${week.week} — ${week.title}`} />
                   </div>
 
                   {/* Right Side */}
@@ -330,7 +330,7 @@ const MockInterview = () => {
             <p className="text-lg md:text-2xl text-gray-100 max-w-2xl mx-auto mb-8">
               Join thousands who've landed their dream jobs with expert mentor guidance
             </p>
-            <WhatsAppCTA label="Mock Interview Program" />
+            <CalendarCTA label="Request a call back" />
           </div>
         </div>
       </div>

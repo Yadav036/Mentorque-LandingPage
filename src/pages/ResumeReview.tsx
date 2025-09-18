@@ -2,8 +2,8 @@ import {  CheckCircle, Star, Clock, Users, Target, Zap, Award } from 'lucide-rea
 import React, { useState, useEffect, useRef } from 'react';
 
 import Navbar from '@/components/Navbar';
+import CalendarCTA from '@/components/CalendarCTA';
 
-import WhatsAppCTA from '@/components/WhatsAppCTA';
 
 const ResumeReview = () => {
    const [animatedCards, setAnimatedCards] = useState(new Set());
@@ -201,7 +201,7 @@ const ResumeReview = () => {
                     ))}
                   </div>
 
-                  <WhatsAppCTA label="Professional Resume Review" />
+                  
                 </div>
                 <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-400/[0.04] via-transparent to-purple-600/[0.03] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-60"></div>
@@ -221,7 +221,7 @@ const ResumeReview = () => {
               Join thousands who've improved their interview success rate with expert feedback
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <WhatsAppCTA label="Professional Resume Review" />
+              <CalendarCTA label="Request a Call back" />
             </div>
           </div>
         </div>

@@ -74,11 +74,11 @@ const Index = () => {
           <About />
         </section>
 
-        <section id="resume">
+       <section id="resume">
           <Resume />
         </section>
 
-         <section id="resume">
+         <section id="ProgressiveTimeline">
         <ProgressiveTimeline/>
         </section>
 

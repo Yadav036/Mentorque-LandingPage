@@ -9,6 +9,8 @@ import Component from "@/components/Weeks";
 import MentorqueFAQ from "@/components/faq";
 import FierceImageCarousel from "@/components/whatsApp";
 import Resume from "@/components/resume"; 
+import ProgressiveTimeline from '@/components/ProgressiveTimeline.tsx'
+
 
 const Index = () => {
   useEffect(() => {
@@ -74,6 +76,10 @@ const Index = () => {
 
         <section id="resume">
           <Resume />
+        </section>
+
+         <section id="resume">
+        <ProgressiveTimeline/>
         </section>
 
         <section id="services">

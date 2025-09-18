@@ -22,18 +22,18 @@ const Navbar = () => {
     { name: "FAQ's", href: "#FAQ" },
   ];
 
-  const getTextColors = () =>
-    isScrolled
-      ? {
-          logoText: "text-white",
-          navText: "text-white/80 hover:text-white",
-          iconColor: "text-white",
-        }
-      : {
-          logoText: "text-gray-900",
-          navText: "text-gray-700 hover:text-gray-900",
-          iconColor: "text-gray-900",
-        };
+ const getTextColors = () =>
+  isScrolled
+    ? {
+        logoText: "text-white",
+        navText: "text-white/80 hover:text-white", 
+        iconColor: "text-white",
+      }
+    : {
+        logoText: "text-white",           // Changed from text-gray-900
+        navText: "text-white/80 hover:text-white",  // Changed from text-gray-700 hover:text-gray-900
+        iconColor: "text-white",         // Changed from text-gray-900
+      };
 
   const colors = getTextColors();
 
@@ -42,12 +42,12 @@ const Navbar = () => {
       <div className="max-w-6xl md:w-full px-[7px]">
         {/* Desktop Navbar */}
         <div
-          className={cn(
-            "hidden md:flex items-center justify-between px-[7px] py-[7px] rounded-2xl transition-all duration-500 ease-out pointer-events-auto",
-            "backdrop-blur-2xl bg-black/10 border border-white/10 shadow-2xl shadow-black/20",
-            isScrolled ? "bg-black/20 border-white/20" : ""
-          )}
-          style={{ minHeight: 52 }}
+         className={cn(
+  "hidden md:flex items-center justify-between px-[7px] py-[7px] rounded-2xl transition-all duration-500 ease-out pointer-events-auto",
+  isScrolled 
+    ? "backdrop-blur-2xl bg-black/20 border-white/20 shadow-2xl shadow-black/20" 
+    : "backdrop-blur-xl bg-white/5 border-white/10 shadow-none"
+)}
         >
           {/* Logo */}
           <div className="flex items-center">

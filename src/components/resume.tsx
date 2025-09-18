@@ -59,7 +59,7 @@ export default function Resume() {
         
         {/* Left side - Text */}
         <div className="space-y-8 text-center lg:text-left">
-          <h2 className="text-4xl md:text-6xl font-bold text-white leading-tight">
+          <h2 className="text-4xl md:text-6xl  text-white leading-tight">
             Crafted for <span className="text-blue-400">Success</span>
           </h2>
 
@@ -86,7 +86,7 @@ export default function Resume() {
               
               </div>
               
-              <p className="text-xl md:text-2xl text-gray-300 mt-4 font-medium transition-all duration-1000 ease-out"
+              <p className="text-xl md:text-2xl text-gray-300 mt-4 transition-all duration-1000 ease-out"
                  style={{
                    transform: isVisible ? 'translateY(0)' : 'translateY(15px)',
                    opacity: isVisible ? 1 : 0,
@@ -106,7 +106,7 @@ export default function Resume() {
               before={beforeResume}
               after={afterResume}
               width={595}
-              height={790}
+              height={750}
             />
           </div>
         </div>

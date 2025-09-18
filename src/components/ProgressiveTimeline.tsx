@@ -1,4 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion"
+import { Info } from "lucide-react"
+
 
 interface TimelineItem {
   id: string;
@@ -7,9 +11,8 @@ interface TimelineItem {
   description: string;
   icon: string;
   isCompleted?: boolean;
+  path: string; 
 }
-
-
 
 const timelineData: TimelineItem[] = [
   {
@@ -66,21 +69,28 @@ const ProgressiveLine: React.FC<{
   height: number; 
 }> = ({ progress, height }) => {
   return (
-    <div className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gray-600" style={{ height: `${height}px` }}>
+    <div
+      className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gray-600 origin-top"
+      style={{ height }}
+    >
       <div
-        className="w-full bg-gradient-to-b from-blue-400 to-blue-500 transition-all duration-000 ease-out origin-top"
-        style={{ height: `${height * progress}px` }}
+        className="w-full bg-gradient-to-b from-blue-400 to-blue-500 origin-top"
+        style={{
+          transform: `scaleY(${progress})`,
+          height: "100%", // fixed height, only scaling changes
+        }}
       />
     </div>
   );
 };
+
 
 const AnimatedMilestone: React.FC<{ 
   item: TimelineItem; 
   index: number; 
   inView: boolean;
   lineProgress: number;
-  onComplete: () => void;
+  onComplete?: () => void;
 }> = ({ item, index, inView, lineProgress, onComplete }) => {
   const [circleComplete, setCircleComplete] = useState(false);
   const [checkComplete, setCheckComplete] = useState(false);
@@ -179,46 +189,62 @@ const TimelineCard: React.FC<{
   const isLeft = index % 2 === 0;
   
   return (
-    <div className="relative flex justify-center w-full">
+<div className="relative flex justify-center w-full">
   <div className="flex w-full max-w-5xl">
     {/* Left side content */}
-   <div className={`w-1/2 flex ${isLeft ? 'justify-center pr-10 md:pr-16' : 'justify-start pl-10 md:pl-16'}`}>
-  {isLeft && (
-    <div
-      className={`
-        p-4 md:p-6 max-w-xs md:max-w-sm
-        transition-all duration-500 ease-out
-        ${inView 
-          ? 'opacity-100 translate-x-0 translate-y-0' 
-          : 'opacity-0 -translate-x-4 md:-translate-x-8 translate-y-4'
-        }
-      `}
-      style={{
-        transitionDelay: `${index * 80}ms`,
-        marginTop: '-30px'
-      }}
-    >
+    <div className={`w-1/2 flex ${isLeft ? 'justify-center pr-8 md:pr-12' : 'justify-start pl-8 md:pl-16'}`}>
+      {isLeft && (
+        <div
+          className={`
+            p-4 md:p-6 max-w-xs md:max-w-sm
+            transition-all duration-500 ease-out
+            ${inView 
+              ? 'opacity-100 translate-x-0 translate-y-0' 
+              : 'opacity-0 -translate-x-4 md:-translate-x-8 translate-y-4'
+            }
+          `}
+          style={{
+            transitionDelay: `${index * 80}ms`,
+            marginTop: '-10px'
+          }}
+        >
 
-      {index !== timelineData.length - 1 && (
-        <div className="flex items-center gap-2 md:gap-4 mb-2 md:mb-4 justify-end">
-          <span className="text-white font-semibold text-lg md:text-xl uppercase tracking-wider">Week</span>
-          <div className="text-xl md:text-3xl font-bold text-blue-400">{item.icon}</div>
+          {index !== timelineData.length - 1 && (
+            <div className="flex items-center gap-1 md:gap-4 mb-1 md:mb-4 justify-end mr-1 md:mr-0">
+              <span className="text-xs md:text-xl font-semibold uppercase tracking-wider text-white">Week</span>
+              <div className="text-base md:text-3xl font-bold text-blue-400">{item.icon}</div>
+            </div>
+          )}
+
+          {/* Title */}
+          <Link to={item.path}>
+  <h3 className="text-sm md:text-4xl font-bold text-blue-400 mb-1 md:mb-4 text-right whitespace-nowrap flex items-center gap-1 md:gap-2 justify-end mr-1 md:mr-0">
+    {item.title}
+    <motion.span
+      initial={{ scale: 1.6, opacity: 0.7 }}
+      animate={{ scale: [1.6, 1.15, 1.6], opacity: [0.7, 1, 0.7] }}
+      transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
+      className="hidden md:inline text-blue-300 cursor-pointer"
+    >
+      <Info size={14} className="md:w-[22px] md:h-[22px]" strokeWidth={2} />
+    </motion.span>
+  </h3>
+</Link>
+
+{/* Mobile only know more */}
+<Link to={item.path} className="flex items-center gap-1 text-blue-400 text-xs mt-1 md:hidden justify-end">
+  <Info size={12} strokeWidth={2} />
+  <span>Know more</span>
+</Link>
+
+
+          {/* Description (hidden on mobile) */}
+          <p className="hidden md:block text-gray-200 leading-relaxed text-xs md:text-xl text-right">
+            {item.description}
+          </p>
         </div>
       )}
-
-      {/* Title */}
-      <h3 className="text-lg md:text-4xl font-bold text-blue-400 mb-2 md:mb-4 text-right whitespace-nowrap">
-        {item.title}
-      </h3>
-
-      {/* Description */}
-      <p className="text-gray-200 leading-relaxed text-xs md:text-xl text-right">
-        {item.description}
-      </p>
     </div>
-  )}
-</div>
-
 
     {/* Right side content */}
     <div className={`w-1/2 flex ${!isLeft ? 'justify-start pl-8 md:pl-14' : 'justify-end pr-8 md:pr-14'}`}>
@@ -238,19 +264,34 @@ const TimelineCard: React.FC<{
           }}
         >
           {/* Week indicator - aligned with title */}
-          <div className="flex items-center gap-2 md:gap-4 mb-2 md:mb-4 justify-start">
-            <span className="text-white font-semibold text-lg md:text-xl uppercase tracking-wider">Week</span>
-            <div className="text-xl md:text-3xl font-bold text-blue-400">{item.icon}</div>
+          <div className="flex items-center gap-1 md:gap-4 mb-1 md:mb-4 justify-start ml-1 md:ml-0">
+            <span className="text-xs md:text-xl font-semibold uppercase tracking-wider text-white">Week</span>
+            <div className="text-base md:text-3xl font-bold text-blue-400">{item.icon}</div>
           </div>
 
-          {/* Title */}
-          <h3 className="text-lg md:text-4xl font-bold text-blue-400 mb-2 md:mb-4 text-left whitespace-nowrap">
-            {item.title}
-          </h3>
+          <Link to={item.path}>
+  <h3 className="text-sm md:text-4xl font-bold text-blue-400 mb-1 md:mb-4 text-left whitespace-nowrap flex items-center gap-1 md:gap-2 justify-start ml-1 md:ml-0">
+    <motion.span
+      initial={{ scale: 1.6, opacity: 0.7 }}
+      animate={{ scale: [1.6, 1.15, 1.6], opacity: [0.7, 1, 0.7] }}
+      transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
+      className="hidden md:inline text-blue-300 cursor-pointer"
+    >
+      <Info size={14} className="md:w-[22px] md:h-[22px]" strokeWidth={2} />
+    </motion.span>
+    {item.title}
+  </h3>
+</Link>
 
-          {/* Description */}
-          <p className="text-gray-200 leading-[2]
- text-xs md:text-xl text-left">
+{/* Mobile only know more */}
+<Link to={item.path} className="flex items-center gap-1 text-blue-400 text-xs mt-1 md:hidden justify-start">
+  <Info size={12} strokeWidth={2} />
+  <span>Know more</span>
+</Link>
+
+
+          {/* Description (hidden on mobile) */}
+          <p className="hidden md:block text-gray-200 leading-[2] text-xs md:text-xl text-left">
             {item.description}
           </p>
         </div>
@@ -258,6 +299,8 @@ const TimelineCard: React.FC<{
     </div>
   </div>
 </div>
+
+
   );
 };
 
@@ -269,53 +312,61 @@ const ProgressiveTimeline: React.FC = () => {
 
   // Responsive spacing
   const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
-  const itemSpacing = isMobile ? 180 : 270;
+  const itemSpacing = isMobile ? 145 : 270;
   const totalItems = timelineData.length;
   const timelineHeight = (totalItems - 1) * itemSpacing + (isMobile ? 100 : 140);
 
   useEffect(() => {
-    const handleResize = () => {
-      setLineProgress(prev => prev);
-    };
+  const handleResize = () => {
+    setLineProgress(prev => prev); // keeps things recalculated
+  };
 
-   
+  let ticking = false;
 
-    const handleScroll = () => {
-      if (timelineRef.current) {
-        const rect = timelineRef.current.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        const triggerPoint = windowHeight * 0.6;
-        
-        const startTrigger = triggerPoint - rect.top;
-        const endTrigger = rect.height - windowHeight + triggerPoint;
-        const progress = Math.max(0, Math.min(1, startTrigger / endTrigger));
-        
-        setLineProgress(progress);
+  const handleScroll = () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        if (timelineRef.current) {
+          const rect = timelineRef.current.getBoundingClientRect();
+          const windowHeight = window.innerHeight;
+          const triggerPoint = windowHeight * 0.6;
 
-        // Check visible sections
-        const sections = document.querySelectorAll('.timeline-item');
-        const newVisible = new Set<number>();
-        sections.forEach((section, index) => {
-          const sectionRect = section.getBoundingClientRect();
-          if (sectionRect.top < windowHeight * 0.9 && sectionRect.bottom > windowHeight * 0.1) {
-            newVisible.add(index);
-          }
-        });
-        setVisibleSections(newVisible);
-      }
-    };
+          const startTrigger = triggerPoint - rect.top;
+          const endTrigger = rect.height - windowHeight + triggerPoint;
+          const progress = Math.max(0, Math.min(1, startTrigger / endTrigger));
+          setLineProgress(progress);
 
-    window.addEventListener('resize', handleResize);
+          // Check visible sections
+          const sections = document.querySelectorAll('.timeline-item');
+          const newVisible = new Set<number>();
+          sections.forEach((section, index) => {
+            const sectionRect = section.getBoundingClientRect();
+            if (
+              sectionRect.top < windowHeight * 0.9 &&
+              sectionRect.bottom > windowHeight * 0.1
+            ) {
+              newVisible.add(index);
+            }
+          });
+          setVisibleSections(newVisible);
+        }
+        ticking = false;
+      });
+      ticking = true;
+    }
+  };
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
+  window.addEventListener('resize', handleResize, { passive: true });
+  window.addEventListener('scroll', handleScroll, { passive: true });
 
-    return () => {
-      window.removeEventListener('resize', handleResize);
+  handleScroll();
 
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+  return () => {
+    window.removeEventListener('resize', handleResize);
+    window.removeEventListener('scroll', handleScroll);
+  };
+}, []);
+
 
 
 
@@ -325,7 +376,7 @@ const ProgressiveTimeline: React.FC = () => {
       {/* Header Section */}
       <section className="py-8 md:py-12 px-2 md:px-8 text-center relative z-10">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-3xl md:text-6xl font-bold text-white leading-tight mb-2 md:mb-6">
+          <h1 className="text-3xl md:text-6xl  text-white leading-tight mb-2 md:mb-6">
             Crafted for <span className="text-blue-400">Success</span>
           </h1>
           
@@ -369,7 +420,10 @@ const ProgressiveTimeline: React.FC = () => {
                         item={item}
                         index={index}
                         inView={inView}
-                        lineProgress={lineProgress}                      />
+                        lineProgress={lineProgress}  
+
+
+                                            />
                     </div>
 
                     {/* Timeline Card */}

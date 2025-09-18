@@ -128,82 +128,99 @@ export default function Component() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [currentSection, imageVisible])
 
+  const [containerHeight, setContainerHeight] = useState(() => {
+  const vw = window.innerWidth
+  return scrollSections.length * (vw >= 1024 ? 100 : 60) // 60vh per section on mobile
+})
+
+useEffect(() => {
+  const handleResize = () => {
+    const vw = window.innerWidth
+    setContainerHeight(scrollSections.length * (vw >= 1024 ? 100 : 60))
+  }
+  window.addEventListener("resize", handleResize)
+  return () => window.removeEventListener("resize", handleResize)
+}, [])
+
+
   return (
-    <div className="bg-black">
-      {/* Sticky scroll section */}
-      <div ref={containerRef} className="relative" style={{ height: `${scrollSections.length * 100}vh` }}>
-        {/* Sticky image container */}
-        <div className="sticky top-0 h-screen flex items-center">
-          <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-            <div className="flex flex-col lg:grid lg:grid-cols-2 gap-6 lg:gap-16 items-center justify-center min-h-screen px-4 lg:px-0">
-              {/* Image - Top on mobile, Left on desktop */}
-              <div
-                ref={imageRef}
-                className={`relative transition-all duration-1000 ease-out w-full lg:w-auto ${
-                  imageVisible ? "translate-y-0 opacity-100" : "translate-y-32 opacity-0"
-                }`}
-              >
-                {/* Flexible container that adapts to image orientation - 20% bigger */}
-                <div className="relative w-full h-80 sm:h-96 lg:h-[600px] xl:h-[720px] max-w-md mx-auto lg:max-w-3xl">
-                  {/* Image stack for smooth crossfade */}
-                  <div className="absolute inset-0">
-                    {scrollSections.map((section, index) => (
-                      <div
-                        key={section.id}
-                        className={`absolute inset-0 transition-all duration-500 ease-out ${
-                          index === currentSection 
-                            ? "opacity-100" 
-                            : "opacity-0 pointer-events-none"
-                        }`}
-                      >
-                        <div className={`w-full h-full transition-transform duration-500 ease-out ${
-                          section.imageClassName 
-                        }`}>
-                          <ResponsiveImage
-                            src={section.image || "/placeholder.svg"}
-                            alt={section.title}
-                            className=""
-                            priority={index === 0}
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Text content - Bottom on mobile, Right on desktop */}
-              <div className="space-y-4 lg:space-y-8 w-full lg:w-auto text-center lg:text-left">
-                <div
-                  key={currentSection}
-                  className={`transition-all duration-300 ease-out ${
-                    isTransitioning ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"
-                  }`}
-                >
-                  <h2 className="text-3xl sm:text-4xl lg:text-5xl  text-white mb-4 lg:mb-6">
-                    {scrollSections[currentSection].title}
-                  </h2>
-                  <p className="text-xl md:text-xl text-gray-100 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                    {scrollSections[currentSection].content}
-                  </p>
-                </div>
-
-                {/* Progress indicators */}
-                <div className="flex justify-center lg:justify-start space-x-2">
-                  {scrollSections.map((_, index) => (
+  <div className="bg-black">
+    {/* Sticky scroll section */}
+    <div
+      ref={containerRef}
+      className="relative"
+      style={{ height: `${scrollSections.length * 100}vh` }} // keep full scroll for desktop
+    >
+      {/* Sticky image container */}
+      <div className="sticky top-0 flex items-center h-screen lg:h-screen">
+        <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+          <div className="flex flex-col lg:grid lg:grid-cols-2 gap-6 lg:gap-16 items-center justify-center px-4 lg:px-0">
+            {/* Image - Top on mobile, Left on desktop */}
+            <div
+              ref={imageRef}
+              className={`relative transition-all duration-1000 ease-out w-full lg:w-auto ${
+                imageVisible ? "translate-y-0 opacity-100" : "translate-y-32 opacity-0"
+              }`}
+            >
+              {/* Flexible container that adapts to image orientation */}
+              <div className="relative w-full h-72 sm:h-80 lg:h-[600px] xl:h-[720px] max-w-md mx-auto lg:max-w-3xl">
+                {/* Image stack for smooth crossfade */}
+                <div className="absolute inset-0">
+                  {scrollSections.map((section, index) => (
                     <div
-                      key={index}
-                      className={`h-2 w-8 rounded-full transition-all duration-300 ${
-                        index === currentSection ? "bg-white w-12" : "bg-gray-600"
+                      key={section.id}
+                      className={`absolute inset-0 transition-all duration-500 ease-out ${
+                        index === currentSection ? "opacity-100" : "opacity-0 pointer-events-none"
                       }`}
-                    />
+                    >
+                      <div
+                        className={`w-full h-full transition-transform duration-500 ease-out ${section.imageClassName}`}
+                      >
+                        <ResponsiveImage
+                          src={section.image || "/placeholder.svg"}
+                          alt={section.title}
+                          priority={index === 0}
+                        />
+                      </div>
+                    </div>
                   ))}
                 </div>
+              </div>
+            </div>
+
+            {/* Text content - Bottom on mobile, Right on desktop */}
+            <div className="space-y-4 lg:space-y-8 w-full lg:w-auto text-center lg:text-left">
+              <div
+                key={currentSection}
+                className={`transition-all duration-300 ease-out ${
+                  isTransitioning ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"
+                }`}
+              >
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl text-white mb-4 lg:mb-6">
+                  {scrollSections[currentSection].title}
+                </h2>
+                <p className="text-xl md:text-xl text-gray-100 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                  {scrollSections[currentSection].content}
+                </p>
+              </div>
+
+              {/* Progress indicators */}
+              <div className="flex justify-center lg:justify-start space-x-2">
+                {scrollSections.map((_, index) => (
+                  <div
+                    key={index}
+                    className={`h-2 w-8 rounded-full transition-all duration-300 ${
+                      index === currentSection ? "bg-white w-12" : "bg-gray-600"
+                    }`}
+                  />
+                ))}
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
+  </div>
+)
+
 }
